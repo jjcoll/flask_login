@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 from flask_bootstrap import Bootstrap5
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
@@ -16,6 +17,9 @@ app.secret_key = "tO$&!|0wkamvVia0?n$NqIRVWOG"
 bootstrap = Bootstrap5(app)
 # Flask-WTF requires this line
 csrf = CSRFProtect(app)
+
+# bycrpt for hashing the passwords
+bcrypt = Bcrypt(app)
 
 # must import routes after we define the application
 from app import routes
