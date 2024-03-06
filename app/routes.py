@@ -1,5 +1,7 @@
-from app import app
-from flask import render_template
+from app import app, db
+from flask import render_template, redirect, url_for
+from app.forms import RegisterForm
+from app.models import User
 
 
 @app.route("/")
@@ -8,9 +10,29 @@ def home_page():
     return render_template("index.html")
 
 
-@app.route("/register")
+@app.route("/user")
+def user_page():
+    return render_template("user.html")
+
+
+@app.route("/register", methods=["POST", "GET"])
 def register_page():
-    return render_template("register.html")
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        # must add the user to the database
+        user_to_add = User(
+            username=form.username.data,
+            email=form.email.data,
+            password_hash=form.password.data,
+        )
+
+        db.session.add(user_to_add)
+        db.session.commit()
+
+        return redirect(url_for("user_page"))
+
+    return render_template("register.html", form=form)
 
 
 @app.route("/login")
