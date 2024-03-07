@@ -28,3 +28,9 @@ class RegisterForm(FlaskForm):
         email_to_add = User.query.filter_by(email=field.data).first()
         if email_to_add:
             raise ValidationError("This email is already being used!")
+
+
+class LoginForm(FlaskForm):
+    username = StringField(label="Enter Username:", validators=[DataRequired()])
+    password = PasswordField(label="Enter you password", validators=[DataRequired()])
+    submit = SubmitField(label="Login in", validators=[DataRequired()])

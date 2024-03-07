@@ -5,5 +5,11 @@ User page
 {% endblock %}
 
 {% block content %}
-<h1>User Page</h1>
+{% if current_user.is_authenticated %}
+Hi {{ current_user.username }}!
+{% else %}
+
+<p>Please <a href="{{ url_for('login_page') }}">login</a> or <a href="{{ url_for('register_page') }}">register</a>
+    to access the content of the page</p>
+{% endif %}
 {% endblock %}

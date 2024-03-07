@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 from flask_bootstrap import Bootstrap5
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 
 app = Flask(__name__)
@@ -20,6 +21,9 @@ csrf = CSRFProtect(app)
 
 # bycrpt for hashing the passwords
 bcrypt = Bcrypt(app)
+
+# login manager
+login_manager = LoginManager(app)
 
 # must import routes after we define the application
 from app import routes
